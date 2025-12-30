@@ -14,7 +14,8 @@ dependencies = [
     "SQLAlchemy",
     "faiss-cpu",
     "numpy",
-    "llama-cpp-python"
+    "llama-cpp-python",
+    "langchain-community"
 ]
 
 [tool.setuptools.packages.find]
