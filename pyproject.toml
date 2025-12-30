@@ -22,6 +22,6 @@ dependencies = [
 where = ["src"]
 
 [project.scripts]
-fog-run = "main:main"
+brainfog = "main:main"
 fog-populate = "populate:populate"
 fog-recalltrial = "recall_trial:recall"
