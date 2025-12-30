@@ -1,8 +1,10 @@
 import os
 from config import Config
+from datetime import datetime
+from database import init_db, SessionLocal
 from langchain.chat_models import init_chat_model
 from langchain.messages import HumanMessage
-
+from services import memory_service
 from agents import MemoryRefineAgent, RecallQueryAgent, RequestCategorizationAgent
 
 def main():
@@ -19,6 +21,9 @@ def main():
         timeout=None,
         max_retries=2,
     )
+
+    init_db()
+    session = SessionLocal()
 
     request_categorization_agent = RequestCategorizationAgent(model=model).get_agent()
     memory_refine_agent = MemoryRefineAgent(model=model).get_agent()
@@ -53,6 +58,16 @@ def main():
             memory_response = memory_refine_agent.invoke({"messages": [message]})
             print("Nametags: ", memory_response["structured_response"].nametags)
             print("Keywords: ", memory_response["structured_response"].keywords)
+
+            keywords = memory_response["structured_response"].keywords + \
+                memory_response["structured_response"].nametags
+            memory = memory_response["structured_response"].memory
+            memory_service.create_memory(
+                session=session,
+                memory=memory,
+                keywords=keywords,
+                timestamp=datetime.now()
+            )
         
         print()
     

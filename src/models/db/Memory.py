@@ -5,7 +5,6 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from typing import List
 
 from .associations import memory_keyword_assoc
-from .Keyword import Keyword
 
 class Memory(DBBase):
     __tablename__ = "memories"
@@ -18,7 +17,7 @@ class Memory(DBBase):
         default=datetime.now()
     )
 
-    keywords: Mapped[List["Keyword"]] = relationship(
+    keywords: Mapped[List["Keyword"]] = relationship( # type: ignore
         secondary=memory_keyword_assoc, 
         back_populates="memories"
     )
