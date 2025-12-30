@@ -23,3 +23,4 @@ where = ["src"]
 
 [project.scripts]
 fog-run = "main:main"
+fog-populate = "populate:populate"
