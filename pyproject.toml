@@ -10,7 +10,8 @@ dependencies = [
     "pydantic",
     "langchain",
     "langchain-openai",
-    "pydantic-settings"
+    "pydantic-settings",
+    "SQLAlchemy"
 ]
 
 [tool.setuptools.packages.find]
