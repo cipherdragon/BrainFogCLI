@@ -30,20 +30,34 @@ def main():
     recall_agent = RecallQueryAgent(model=model).get_agent()
 
     prompts = [
-        "Remember that my favorite color is blue.",
-        "What's the difference between a qubit and a qudit?",
-        "Tell me a joke about programmers.",
-        "Store the fact that the capital of France is Paris.",
-        "Angela's birthday is on July 15th.",
-        "Greg should send me Q4 report by evening."
+        "I prefer my coffee black with no sugar.",
+        "The 'Project Phoenix' launch date is set for October 12th.",
+        "My sister's dog, Cooper, is a Golden Retriever.",
+        "I'm allergic to shellfish and cashews.",
+        "The guest Wi-Fi password is 'MountainView2024'.",
+        "Mark's favorite wine is a dry Cabernet Sauvignon.",
+        "I need to pay the property tax by the end of November.",
+        "The office alarm code is 5582 followed by the hash key.",
+        "I am currently reading 'Project Hail Mary' by Andy Weir.",
+        "My car's last oil change was at 45,000 miles.",
+        "Sarah mentioned she wants minimalist gold earrings for her birthday.",
+        "The server maintenance window is every Sunday at 2 AM EST.",
+        "I usually go to the gym on Mondays, Wednesdays, and Fridays.",
+        "My library card number ends in 9931.",
+        "The garden hose is stored in the shed behind the lawnmower.",
+        "I'm learning the Actix-web framework for my new Rust project.",
+        "The blue folder in the cabinet contains the house deed.",
+        "My blood type is A-positive.",
+        "Last night's dinner at 'The Blue Oyster' was excellent.",
+        "The emergency shut-off valve for the water is in the basement crawlspace."
     ]
 
     queries = [
-        "What's the difference between a qubit and a qudit?",
-        "When is Angela's birthday?",
-        "How much I spent yesterday?",
-        "What's the capital of France?",
-        "Who is the CEO of Tesla?"
+        "What is the Wi-Fi password for guests?",
+        "Where did I put the water shut-off valve in case of an emergency?",
+        "When is the server maintenance scheduled?",
+        "What kind of earrings does Sarah want for her birthday?",
+        "What were my gym days again?"
     ]
 
     for prompt in prompts:
