@@ -1,0 +1,54 @@
+Input:  Remember that my favorite color is blue.
+Category:  memorize
+Nametags:  []
+Keywords:  ['favorite', 'color', 'blue']
+
+Input:  What's the difference between a qubit and a qudit?
+Category:  recall
+
+Input:  Tell me a joke about programmers.
+Category:  invalid
+I can only assist as a second memory, hence I can't help with that.
+
+Input:  Store the fact that the capital of France is Paris.
+Category:  memorize
+Nametags:  ['Paris', 'France']
+Keywords:  ['capital', 'fact', 'country']
+
+Input:  Angela's birthday is on July 15th.
+Category:  memorize
+Nametags:  ['Angela', 'July 15th']
+Keywords:  ['birthday', 'celebration', 'date', 'July']
+
+Input:  Greg should send me Q4 report by evening.
+Category:  memorize
+Nametags:  ['Greg', 'Q4 report']
+Keywords:  ['send', 'evening', 'deadline', 'business', 'communication']
+
+---- RECALL QUERIES ----
+
+Input:  What's the difference between a qubit and a qudit?
+Category:  recall
+Search Query:  qubit qudit difference
+Nametag:  []
+
+Input:  When is Angela's birthday?
+Category:  recall
+Search Query:  birthday date
+Nametag:  ['Angela']
+
+Input:  How much I spent yesterday?
+Category:  recall
+Search Query:  spent expenses yesterday
+Nametag:  []
+
+Input:  What's the capital of France?
+Category:  recall
+Search Query:  capital city information
+Nametag:  ['France']
+
+Input:  Who is the CEO of Tesla?
+Category:  recall
+Search Query:  CEO Tesla
+Nametag:  ['Tesla']
+

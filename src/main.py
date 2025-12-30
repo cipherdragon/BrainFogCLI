@@ -18,7 +18,6 @@ def main():
         max_tokens=None,
         timeout=None,
         max_retries=2,
-        # structured_output=True
     )
 
     request_categorization_agent = RequestCategorizationAgent(model=model).get_agent()
@@ -27,20 +26,53 @@ def main():
 
     prompts = [
         "Remember that my favorite color is blue.",
+        "What's the difference between a qubit and a qudit?",
+        "Tell me a joke about programmers.",
+        "Store the fact that the capital of France is Paris.",
+        "Angela's birthday is on July 15th.",
+        "Greg should send me Q4 report by evening."
     ]
 
     queries = [
-
+        "What's the difference between a qubit and a qudit?",
+        "When is Angela's birthday?",
+        "How much I spent yesterday?",
+        "What's the capital of France?",
+        "Who is the CEO of Tesla?"
     ]
 
     for prompt in prompts:
         message = HumanMessage(content=prompt)
         response = request_categorization_agent.invoke({"messages": [message]})
-        print("Request Categorization Response:", response["structured_response"].category)
+        print("Input: ", prompt)
+        print("Category: ", response["structured_response"].category)
+        if response["structured_response"].category == "invalid":
+            print(response["structured_response"].content)
 
         if response["structured_response"].category == "memorize":
             memory_response = memory_refine_agent.invoke({"messages": [message]})
-            print("Memory Refine Response:", memory_response["structured_response"])
+            print("Nametags: ", memory_response["structured_response"].nametags)
+            print("Keywords: ", memory_response["structured_response"].keywords)
+        
+        print()
+    
+    print("---- RECALL QUERIES ----")
+    print()
+
+    for query in queries:
+        message = HumanMessage(content=query)
+        response = request_categorization_agent.invoke({"messages": [message]})
+        print("Input: ", query)
+        print("Category: ", response["structured_response"].category)
+        if response["structured_response"].category == "invalid":
+            print(response["structured_response"].content)
+
+        if response["structured_response"].category == "recall":
+            recall_response = recall_agent.invoke({"messages": [message]})
+            print("Search Query: ", recall_response["structured_response"].search_query)
+            print("Nametag: ", recall_response["structured_response"].nametag_filters)
+        
+        print()
 
 if __name__ == "__main__":
     main()
