@@ -18,7 +18,7 @@ def create_memory(session: Session, memory: str,
 
     return new_memory
 
-def query_memory(session: Session, query: str) -> list[str]:
+def query_memory(session: Session, query: str) -> list[Memory]:
     keyword_repo = KeywordRepository(session)
     all_keywords = [keyword.word for keyword in keyword_repo.get_all_keywords()]
     if not all_keywords:
@@ -31,4 +31,4 @@ def query_memory(session: Session, query: str) -> list[str]:
     memory_repo = MemoryRepository(session)
     memories = memory_repo.get_memories_by_keywords(keywords, k=3)
 
-    return [memory.memory for memory in memories]
+    return memories
