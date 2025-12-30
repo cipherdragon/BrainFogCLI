@@ -30,3 +30,13 @@ class MemoryRefineAgent(Agent):
             system_prompt=prompt,
             response_format=RefinedMemory
         )
+
+class MemAssistantAgent(Agent):
+    def __init__(self, model):
+        from prompts.MemAssistantPrompt import MemAssistantPrompt
+        prompt = MemAssistantPrompt().get_prompt()
+        super().__init__(
+            model=model,
+            system_prompt=prompt,
+            response_format=None
+        )

@@ -4,7 +4,7 @@ from database import init_db, SessionLocal
 from langchain.chat_models import init_chat_model
 from langchain.messages import HumanMessage
 from services import memory_service
-from agents import RecallQueryAgent, RequestCategorizationAgent
+from agents import RecallQueryAgent, RequestCategorizationAgent, MemAssistantAgent
 
 def main():
     config = Config()
@@ -26,6 +26,7 @@ def main():
 
     request_categorization_agent = RequestCategorizationAgent(model=model).get_agent()
     recall_agent = RecallQueryAgent(model=model).get_agent()
+    mem_assistant_agent = MemAssistantAgent(model=model).get_agent()
 
     queries = [
         "What is the Wi-Fi password for guests?",
@@ -48,9 +49,13 @@ def main():
                 session=session,
                 query=recall_response["structured_response"].search_query
             )
-            print("Retrieved Memories: ")
-            for mem in memories:
-                print(f"- {mem}")
+
+            query = f"User Query: {query}\nRetrieved Memories:\n---\n{'\n'.join(memories)}"
+            response = mem_assistant_agent.invoke({
+                "messages": [HumanMessage(content=query)]
+            })
+            print("Assistant Response: ", response["messages"][-1].content)
+
         print()
 
 if __name__ == "__main__":
