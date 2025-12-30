@@ -11,7 +11,10 @@ dependencies = [
     "langchain",
     "langchain-openai",
     "pydantic-settings",
-    "SQLAlchemy"
+    "SQLAlchemy",
+    "faiss-cpu",
+    "numpy",
+    "llama-cpp-python"
 ]
 
 [tool.setuptools.packages.find]
