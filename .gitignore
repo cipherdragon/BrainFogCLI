@@ -3,6 +3,7 @@ notebooks/
 local-models/
 fogdb.db
 fog.db
+improvement-notes.md
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

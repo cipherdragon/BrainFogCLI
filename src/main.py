@@ -11,7 +11,24 @@ from agents import (
 )
 
 def help_msg():
-    return "Help"
+    return """
+Brainfog is a personal memory assistant that helps you store and recall information.
+Usage is simple, you just type whatever memory you have. Brainfog will store it.
+Then later you can ask things from brainfog and if brainfog can recall such a memory,
+it will answer you based on that memory. For example:
+
+>>> I met John Doe at the conference last week. He works at Acme Corp as a software engineer.
+
+Memorized!
+
+>>> Who is John Doe?
+
+John Doe is a software engineer at Acme Corp.
+
+---
+Type 'exit' or 'quit' to end the session.
+Type 'help' to see this message again.
+Enjoy!"""
 
 def main():
     config = Config()
