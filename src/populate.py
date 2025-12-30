@@ -3,7 +3,6 @@ from config import Config
 from datetime import datetime
 from database import init_db, SessionLocal
 from langchain.chat_models import init_chat_model
-from langchain.messages import HumanMessage
 from services import memory_service
 from agents import MemoryRefineAgent, RequestCategorizationAgent
 
@@ -25,8 +24,8 @@ def populate():
     init_db()
     session = SessionLocal()
 
-    request_categorization_agent = RequestCategorizationAgent(model=model).get_agent()
-    memory_refine_agent = MemoryRefineAgent(model=model).get_agent()
+    request_categorization_agent = RequestCategorizationAgent(model=model)
+    memory_refine_agent = MemoryRefineAgent(model=model)
 
     prompts = [
         "I prefer my coffee black with no sugar.",
@@ -52,21 +51,20 @@ def populate():
     ]
 
     for prompt in prompts:
-        message = HumanMessage(content=prompt)
-        response = request_categorization_agent.invoke({"messages": [message]})
+        response = request_categorization_agent.invoke(prompt)
         print("Input: ", prompt)
-        print("Category: ", response["structured_response"].category)
-        if response["structured_response"].category == "invalid":
-            print(response["structured_response"].content)
+        print("Category: ", response.category)
+        if response.category == "invalid":
+            print(response.content)
 
-        if response["structured_response"].category == "memorize":
-            memory_response = memory_refine_agent.invoke({"messages": [message]})
-            print("Nametags: ", memory_response["structured_response"].nametags)
-            print("Keywords: ", memory_response["structured_response"].keywords)
+        if response.category == "memorize":
+            memory_response = memory_refine_agent.invoke(prompt)
+            print("Nametags: ", memory_response.nametags)
+            print("Keywords: ", memory_response.keywords)
 
-            keywords = memory_response["structured_response"].keywords + \
-                memory_response["structured_response"].nametags
-            memory = memory_response["structured_response"].memory
+            keywords = memory_response.keywords + \
+                memory_response.nametags
+            memory = memory_response.memory
             memory_service.create_memory(
                 session=session,
                 memory=memory,

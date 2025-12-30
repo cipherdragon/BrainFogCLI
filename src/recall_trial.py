@@ -24,9 +24,9 @@ def recall():
     init_db()
     session = SessionLocal()
 
-    request_categorization_agent = RequestCategorizationAgent(model=model).get_agent()
-    recall_agent = RecallQueryAgent(model=model).get_agent()
-    mem_assistant_agent = MemAssistantAgent(model=model).get_agent()
+    request_categorization_agent = RequestCategorizationAgent(model=model)
+    recall_agent = RecallQueryAgent(model=model)
+    mem_assistant_agent = MemAssistantAgent(model=model)
 
     queries = [
         "What is the Wi-Fi password for guests?",
@@ -37,24 +37,20 @@ def recall():
     ]
 
     for query in queries:
-        message = HumanMessage(content=query)
-        response = request_categorization_agent.invoke({"messages": [message]})
+        response = request_categorization_agent.invoke(query)
         print("Input: ", query)
-        if response["structured_response"].category == "invalid":
-            print(response["structured_response"].content)
+        if response.category == "invalid":
+            print(response.content)
 
-        if response["structured_response"].category == "recall":
-            recall_response = recall_agent.invoke({"messages": [message]})
+        if response.category == "recall":
+            recall_response = recall_agent.invoke(query)
             memories = memory_service.query_memory(
                 session=session,
-                query=recall_response["structured_response"].search_query
+                query=recall_response.search_query
             )
 
-            query = f"User Query: {query}\nRetrieved Memories:\n---\n{'\n'.join(memories)}"
-            response = mem_assistant_agent.invoke({
-                "messages": [HumanMessage(content=query)]
-            })
-            print("Assistant Response: ", response["messages"][-1].content)
+            response = mem_assistant_agent.invoke(query, memories)
+            print("Assistant Response: ", response)
 
         print()
 

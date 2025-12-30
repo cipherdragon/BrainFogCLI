@@ -8,5 +8,5 @@ class Agent:
             response_format=response_format
         )
     
-    def get_agent(self):
+    def get_raw_agent(self):
         return self.agent
