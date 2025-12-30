@@ -28,35 +28,7 @@ def main():
     recall_agent = RecallQueryAgent(model=model).get_agent()
     mem_assistant_agent = MemAssistantAgent(model=model).get_agent()
 
-    queries = [
-        "What is the Wi-Fi password for guests?",
-        "Where did I put the water shut-off valve in case of an emergency?",
-        "When is the server maintenance scheduled?",
-        "What kind of earrings does Sarah want for her birthday?",
-        "What were my gym days again?"
-    ]
-
-    for query in queries:
-        message = HumanMessage(content=query)
-        response = request_categorization_agent.invoke({"messages": [message]})
-        print("Input: ", query)
-        if response["structured_response"].category == "invalid":
-            print(response["structured_response"].content)
-
-        if response["structured_response"].category == "recall":
-            recall_response = recall_agent.invoke({"messages": [message]})
-            memories = memory_service.query_memory(
-                session=session,
-                query=recall_response["structured_response"].search_query
-            )
-
-            query = f"User Query: {query}\nRetrieved Memories:\n---\n{'\n'.join(memories)}"
-            response = mem_assistant_agent.invoke({
-                "messages": [HumanMessage(content=query)]
-            })
-            print("Assistant Response: ", response["messages"][-1].content)
-
-        print()
+    print("Not implemented yet")
 
 if __name__ == "__main__":
     main()
