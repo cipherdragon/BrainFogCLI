@@ -1,5 +1,7 @@
 from datetime import datetime
+from langchain_community.vectorstores.faiss import FAISS
 from models.db.Memory import Memory
+from models.embeddings import GraniteEmbeddings
 from repositories.memory_repo import MemoryRepository
 from repositories.keyword_repository import KeywordRepository
 from sqlalchemy.orm import Session
@@ -15,3 +17,16 @@ def create_memory(session: Session, memory: str,
     memory_repo.commit()
 
     return new_memory
+
+def query_memory(session: Session, query: str) -> list[str]:
+    keyword_repo = KeywordRepository(session)
+    all_keywords = [keyword.word for keyword in keyword_repo.get_all_keywords()]
+    embedding_model = GraniteEmbeddings(model_path="local-models/granite-embedding.gguf")
+    library = FAISS.from_texts(all_keywords, embedding_model)
+    results = library.similarity_search(query, k=5)
+    keywords = [res.page_content for res in results]
+ 
+    memory_repo = MemoryRepository(session)
+    memories = memory_repo.get_memories_by_keywords(keywords, k=3)
+
+    return [memory.memory for memory in memories]

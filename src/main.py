@@ -39,15 +39,18 @@ def main():
         message = HumanMessage(content=query)
         response = request_categorization_agent.invoke({"messages": [message]})
         print("Input: ", query)
-        print("Category: ", response["structured_response"].category)
         if response["structured_response"].category == "invalid":
             print(response["structured_response"].content)
 
         if response["structured_response"].category == "recall":
             recall_response = recall_agent.invoke({"messages": [message]})
-            print("Search Query: ", recall_response["structured_response"].search_query)
-            print("Nametag: ", recall_response["structured_response"].nametag_filters)
-        
+            memories = memory_service.query_memory(
+                session=session,
+                query=recall_response["structured_response"].search_query
+            )
+            print("Retrieved Memories: ")
+            for mem in memories:
+                print(f"- {mem}")
         print()
 
 if __name__ == "__main__":
