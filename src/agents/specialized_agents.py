@@ -1,6 +1,6 @@
 from .Agent import Agent
 
-from models import RecallQuery, RefinedMemory, RequestCategorization
+from models.schemas import RecallQuery, RefinedMemory, RequestCategorization
 from prompts import RecallQueryPrompt, MemoryRefinePrompt, RequestCategorizerPrompt
 
 class RequestCategorizationAgent(Agent):
