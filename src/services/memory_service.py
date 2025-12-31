@@ -5,6 +5,7 @@ from models.embeddings import GraniteEmbeddings
 from repositories.memory_repo import MemoryRepository
 from repositories.keyword_repository import KeywordRepository
 from sqlalchemy.orm import Session
+from config import Config
 
 def create_memory(session: Session, memory: str,
                   keywords: list[str], timestamp: datetime) -> Memory:
@@ -23,7 +24,11 @@ def query_memory(session: Session, query: str) -> list[Memory]:
     all_keywords = [keyword.word for keyword in keyword_repo.get_all_keywords()]
     if not all_keywords:
         return []
-    embedding_model = GraniteEmbeddings(model_path="local-models/granite-embedding.gguf")
+    config = Config()
+    embedding_model_path = config.EMBEDDING_MODEL_PATH
+    if embedding_model_path is None:
+        raise ValueError("EMBEDDING_MODEL_PATH is not set in the configuration.")
+    embedding_model = GraniteEmbeddings(model_path=embedding_model_path)
     library = FAISS.from_texts(all_keywords, embedding_model)
     results = library.similarity_search(query, k=5)
     keywords = [res.page_content for res in results]
