@@ -62,14 +62,14 @@ mode or editable mode if you plan to modify the code or test engine changes.
     # Visit https://ollama.com for installation instructions
     
     # Pull the granite-embedding model
-    ollama pull granite-embedding
+    ollama pull granite-embedding:30m
     
-    # Export the model weights as a .gguf file
+    # Copy the model weights as a .gguf file
     # The model will be stored in Ollama's model directory
     # You can find it typically at ~/.ollama/models/
     ```
     
-    After obtaining the model, place it in a `local-models/` directory or specify your preferred path in the configuration.
+    After obtaining the model, place it in a preferred path and mention it in the configuration.
 
 4.  **Configuration**
     Create a `.env` file in the root directory with your credentials:
