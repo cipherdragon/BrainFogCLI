@@ -58,6 +58,7 @@ mode or editable mode if you plan to modify the code or test engine changes.
     ```env
     OPENAI_API_KEY="openai_api_key_here"
     DATABASE_URL="sqlite:///fog.db"
+    EMBEDDING_MODEL_PATH="local-models/granite-embedding.gguf"  # Optional, defaults to local-models/granite-embedding.gguf
     ```
 
 ## 📖 Usage
