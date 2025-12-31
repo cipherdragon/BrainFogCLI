@@ -35,7 +35,7 @@ mode or editable mode if you plan to modify the code or test engine changes.
 1.  **Clone the repository**
     ```bash
     git clone https://github.com/cipherdragon/BrainFogCLI.git
-    cd brainfog-cli
+    cd BrainFogCLI
     ```
 
 2.  **Install the package**
@@ -62,8 +62,8 @@ mode or editable mode if you plan to modify the code or test engine changes.
 
 ## 📖 Usage
 
-Once installed, simply run the `brainfog` command to launch the interactive CLI.
+Once installed, simply run the `brainfog-cli` command to launch the interactive CLI.
 
 ```bash
-brainfog
+brainfog-cli
 ```
