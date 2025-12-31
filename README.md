@@ -26,6 +26,7 @@ FAISS vector search.
 
 * Python 3.10+
 * An OpenAI API Key
+* IBM Granite Embedding Model (`.gguf` format)
 
 ### Installation
 
@@ -52,7 +53,25 @@ mode or editable mode if you plan to modify the code or test engine changes.
         pip install -e .
         ```
 
-3.  **Configuration**
+3.  **Get IBM Granite Embedding Model**
+    
+    The application requires IBM's Granite embedding model for semantic search. You can obtain this model using [Ollama](https://ollama.com/library/granite-embedding):
+    
+    ```bash
+    # Install Ollama (if not already installed)
+    # Visit https://ollama.com for installation instructions
+    
+    # Pull the granite-embedding model
+    ollama pull granite-embedding
+    
+    # Export the model weights as a .gguf file
+    # The model will be stored in Ollama's model directory
+    # You can find it typically at ~/.ollama/models/
+    ```
+    
+    After obtaining the model, place it in a `local-models/` directory or specify your preferred path in the configuration.
+
+4.  **Configuration**
     Create a `.env` file in the root directory with your credentials:
 
     ```env
