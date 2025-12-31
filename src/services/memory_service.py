@@ -25,6 +25,8 @@ def query_memory(session: Session, query: str) -> list[Memory]:
     if not all_keywords:
         return []
     config = Config()
+    if config.EMBEDDING_MODEL_PATH is None:
+        raise ValueError("EMBEDDING_MODEL_PATH is not set in the configuration.")
     embedding_model = GraniteEmbeddings(model_path=config.EMBEDDING_MODEL_PATH)
     library = FAISS.from_texts(all_keywords, embedding_model)
     results = library.similarity_search(query, k=5)
